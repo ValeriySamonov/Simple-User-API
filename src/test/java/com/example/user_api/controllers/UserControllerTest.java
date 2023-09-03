@@ -174,8 +174,9 @@ public class UserControllerTest {
         long userId = 1L;
         long contactId = 1L;
 
-        mockMvc.perform(get("/api/users/" + userId + "/contacts/" + ContactType.PHONE)
-                        .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/api/users/" + userId + "/contacts/type")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("contactType", String.valueOf(ContactType.PHONE)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(contactId))
                 .andExpect(jsonPath("$[0].contactType").value("PHONE"))
@@ -190,8 +191,9 @@ public class UserControllerTest {
         long userId = 1L;
         long contactId = 2L;
 
-        mockMvc.perform(get("/api/users/" + userId + "/contacts/" + ContactType.EMAIL)
-                        .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/api/users/" + userId + "/contacts/type")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("contactType", String.valueOf(ContactType.EMAIL)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(contactId))
                 .andExpect(jsonPath("$[0].contactType").value("EMAIL"))

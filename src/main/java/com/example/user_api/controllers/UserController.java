@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "User API", description = "Основные операции API")
+@Tag(name = "User API", description = "Простая реализацию пользовательского API, " +
+        "позволяющая осуществлять основные операции по хранению информации о пользователях и их контактах.")
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -106,9 +107,9 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "Запрос успешно выполнен"),
             @ApiResponse(responseCode = "404", description = "Пользователь не существует")
     })
-    @GetMapping("/users/{userId}/contacts/{contactType}")
+    @GetMapping("/users/{userId}/contacts/type")
     public List<ContactDTO> getUserContactByType(@Parameter(description = "ID пользователя") @PathVariable Long userId,
-                                                 @Parameter(description = "Тип контакта") @PathVariable ContactType contactType) {
+                                                 @Parameter(description = "Тип контакта") @RequestParam ContactType contactType) {
         return userService.getUserContactByType(userId, contactType);
     }
 
