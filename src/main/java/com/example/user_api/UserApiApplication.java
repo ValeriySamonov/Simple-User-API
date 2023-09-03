@@ -1,13 +1,13 @@
-package com.example.user_details;
+package com.example.user_api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class UserDetailsApplication {
+public class UserApiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(UserDetailsApplication.class, args);
+        SpringApplication.run(UserApiApplication.class, args);
     }
 
 }
