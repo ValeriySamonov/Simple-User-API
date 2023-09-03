@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: createTableContacts
+      author: VVS
+      changes:
+        - createTable:
+            tableName: contacts
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: contact_type
+                  type: SMALLINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: value
+                  type: VARCHAR(65)
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+            foreignKeys:
+              - foreignKey:
+                  baseTableName: contacts
+                  baseColumnNames: user_id
+                  referencedTableName: users
+                  referencedColumnNames: id
+                  constraintName: FK_contacts_user
+                  onDelete: CASCADE
+                  onUpdate: CASCADE
+
+

@@ -7,6 +7,7 @@ import com.example.user_api.dto.user.CreateUserDTO;
 import com.example.user_api.dto.user.UserDTO;
 import com.example.user_api.dto.user.UserWithContactDTO;
 import com.example.user_api.enums.ContactType;
+import com.example.user_api.exceptions.UserNotFoundException;
 import com.example.user_api.models.Contact;
 import com.example.user_api.models.User;
 import com.example.user_api.repositories.ContactRepository;
@@ -30,15 +31,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Long createUser(CreateUserDTO createUserDTO) {
+
         User user = new User()
                 .setUsername(createUserDTO.getUsername());
         userRepository.save(user);
+
+
         return user.getId();
     }
 
     @Override
     public <T> Long createUserContact(Long userId, T createContactDTO, ContactType contactType) {
-        User user = userRepository.findById(userId).orElseThrow();
+
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
         String value = null;
         if (createContactDTO instanceof CreateEmailDTO) {
@@ -52,19 +57,23 @@ public class UserServiceImpl implements UserService {
                 .setValue(value)
                 .setUser(user);
         contactRepository.save(contact);
+
         return contact.getId();
     }
 
     @Override
     public Page<UserDTO> getAllUsers(int page, int size) {
+
         Pageable pageable = PageRequest.of(page, size);
         Page<User> usersPage = userRepository.findAll(pageable);
+
         return usersPage.map(user -> modelMapper.map(user, UserDTO.class));
     }
 
     @Override
     public UserWithContactDTO getUserById(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow();
+
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
         UserWithContactDTO userWithContactDTO = modelMapper.map(user, UserWithContactDTO.class);
 
@@ -79,7 +88,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<ContactDTO> getContactByUserId(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow();
+
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
         return user.getContacts().stream()
                 .map(contact -> modelMapper.map(contact, ContactDTO.class))
@@ -88,7 +98,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<ContactDTO> getUserContactByType(Long userId, ContactType contactType) {
-        User user = userRepository.findById(userId).orElseThrow();
+
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
         return user.getContacts().stream()
                 .filter(contact -> contact.getContactType().equals(contactType))
@@ -98,7 +109,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUserById(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow();
+
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
         userRepository.delete(user);
     }
