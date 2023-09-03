@@ -1,4 +1,4 @@
-package com.example.user_details;
+package com.example.user_api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -8,7 +8,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 @TestConfiguration(proxyBeanMethods = false)
-public class TestUserDetailsApplication {
+public class TestUserApiApplication {
 
     @Bean
     @ServiceConnection
@@ -17,7 +17,7 @@ public class TestUserDetailsApplication {
     }
 
     public static void main(String[] args) {
-        SpringApplication.from(UserDetailsApplication::main).with(TestUserDetailsApplication.class).run(args);
+        SpringApplication.from(UserApiApplication::main).with(TestUserApiApplication.class).run(args);
     }
 
 }

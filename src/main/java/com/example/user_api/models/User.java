@@ -1,4 +1,4 @@
-package com.example.user_details.models;
+package com.example.user_api.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -21,10 +21,7 @@ public class User {
     @Column(nullable = false, unique = true)
     private String username;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Phone> phones = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Email> emails = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Contact> contacts = new ArrayList<>();
 
 }
