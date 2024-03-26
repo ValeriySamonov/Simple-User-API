@@ -18,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
 
     @Override
+    @Transactional
     public Long createUser(CreateUserDTO createUserDTO) {
 
         User user = new User()
@@ -41,6 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public <T> Long createUserContact(Long userId, T createContactDTO, ContactType contactType) {
 
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
@@ -62,6 +65,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public Page<UserDTO> getAllUsers(int page, int size) {
 
         Pageable pageable = PageRequest.of(page, size);
@@ -71,6 +75,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserWithContactDTO getUserById(Long userId) {
 
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
@@ -87,6 +92,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public List<ContactDTO> getContactByUserId(Long userId) {
 
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
@@ -97,6 +103,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public List<ContactDTO> getUserContactByType(Long userId, ContactType contactType) {
 
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
@@ -108,6 +115,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void deleteUserById(Long userId) {
 
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
