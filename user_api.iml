@@ -3,8 +3,8 @@
   <component name="FacetManager">
     <facet type="jpa" name="JPA">
       <configuration>
-        <setting name="validation-enabled" value="true" />
-        <setting name="provider-name" value="Hibernate" />
+        <setting name="validation-enabled" value="true"/>
+        <setting name="provider-name" value="Hibernate"/>
         <datasource-mapping>
           <factory-entry name="entityManagerFactory" value="5b30ecd7-b914-43b6-af75-0db6829b9bea" />
         </datasource-mapping>
